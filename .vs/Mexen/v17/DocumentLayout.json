@@ -11,7 +11,7 @@
       "RelativeMoniker": "D:0:0:{FE94FD4F-9706-4BD5-8ED0-C31E3DC2518E}|Mexen.esproj|solutionrelative:src\\app\\app.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE94FD4F-9706-4BD5-8ED0-C31E3DC2518E}|Mexen.esproj|c:\\users\\mats\\source\\repos\\mexen\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "AbsoluteMoniker": "D:0:0:{FE94FD4F-9706-4BD5-8ED0-C31E3DC2518E}|Mexen.esproj|C:\\Users\\mats\\source\\repos\\Mexen\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{FE94FD4F-9706-4BD5-8ED0-C31E3DC2518E}|Mexen.esproj|solutionrelative:src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
@@ -50,8 +50,7 @@
               "RelativeToolTip": "src\\app\\app.module.ts",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-06T10:27:03.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T10:27:03.18Z"
             },
             {
               "$type": "Document",
@@ -85,7 +84,7 @@
               "RelativeDocumentMoniker": "src\\app\\app.component.ts",
               "ToolTip": "C:\\Users\\mats\\source\\repos\\Mexen\\src\\app\\app.component.ts",
               "RelativeToolTip": "src\\app\\app.component.ts",
-              "ViewState": "AQIAAEEAAAAAAAAAAADwv0kAAAAYAAAA",
+              "ViewState": "AQIAAG4AAAAAAAAAAADwv5sAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "WhenOpened": "2024-12-05T13:27:11.925Z",
               "EditorCaption": ""
@@ -100,8 +99,7 @@
               "RelativeToolTip": "src\\app\\app.component.html",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-12-05T13:27:07.745Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T13:27:07.745Z"
             },
             {
               "$type": "Document",

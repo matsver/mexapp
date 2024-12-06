@@ -15,11 +15,14 @@ export class AppComponent {
   mexCount: number[] = [];
   roundOver: boolean = false;
   winner: string = '';
+  playersRolled: boolean[] = [];
+  losingPlayerIndex: number = 0;
   rollsUsedForMex: number = 0;
+  playersPlayed: boolean[] = [];
   maxRollsForRest: number = 3;
-  newPlayerName: string = ''; // Variabele voor de invoer van nieuwe spelers
-  tiedPlayers: number[] = []; // Indexen van spelers met de laagste score
-  inTieBreaker: boolean = false; // Geeft aan of een tiebreak bezig is
+  newPlayerName: string = '';
+  tiedPlayers: number[] = [];
+  inTieBreaker: boolean = false;
 
   rollDice(): void {
     if (this.currentRollCount <= 0 || this.roundOver) {
@@ -56,18 +59,43 @@ export class AppComponent {
     }
   }
 
-  nextPlayer(): void {
-    this.keptDice = [];
-    this.rollsUsedForMex = 0;
-    this.currentRollCount = this.maxRollsForRest;
+nextPlayer(): void {
+  this.keptDice = [];
+  this.rollsUsedForMex = 0;
+  this.currentRollCount = this.maxRollsForRest;
 
-    if (this.currentPlayerIndex === this.players.length - 1) {
-      this.roundOver = true;
-      this.calculateLoser();
-    } else {
-      this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
-    }
+  this.playersRolled[this.currentPlayerIndex] = true; // Markeer dat de huidige speler heeft gegooid
+
+  // Controleer of alle spelers hebben gegooid
+  const allPlayersRolled = this.playersRolled.every(player => player);
+
+  if (allPlayersRolled) {
+    this.roundOver = true;
+    this.calculateLoser();
+    return;
   }
+
+  let nextIndex = (this.currentPlayerIndex + 1) % this.players.length;
+  while (this.playersRolled[nextIndex]) {
+    nextIndex = (nextIndex + 1) % this.players.length;
+  }
+
+  this.currentPlayerIndex = nextIndex;
+}
+
+resetRound(): void {
+  this.score = [];
+  this.mexCount = Array(this.players.length).fill(0);
+  this.roundOver = false;
+  this.playersRolled = Array(this.players.length).fill(false); // Reset de array die bijhoudt wie heeft gegooid
+  this.currentPlayerIndex = this.losingPlayerIndex;
+  this.currentRollCount = 3;
+  this.maxRollsForRest = 3;
+  this.keptDice = [];
+  this.rolls = [];
+}
+
+
 
   calculateScore(): void {
     let [roll1, roll2] = this.rolls;
@@ -85,57 +113,43 @@ export class AppComponent {
   calculateLoser(): void {
     const mexScore = 21;
 
-    // Filter de spelers die géén Mex hebben gegooid
     const validScores = this.score.filter(score => score !== mexScore);
 
-    // Als iedereen Mex heeft gegooid, is er geen verliezer
     if (validScores.length === 0) {
-      this.winner = 'Geen verliezer, iedereen heeft Mex gegooid!';
+      this.winner = 'No loser, everyone rolled Mex!';
       return;
     }
 
-    // Zoek de laagste geldige score
     const minScore = Math.min(...validScores);
 
-    // Vind de indexen van de spelers met de laagste score
     this.tiedPlayers = this.score
       .map((score, index) => (score === minScore ? index : -1))
       .filter(index => index !== -1);
 
     if (this.tiedPlayers.length > 1) {
-      // Start een tiebreak
       this.inTieBreaker = true;
-      this.currentPlayerIndex = this.tiedPlayers[0]; // Begin met de eerste speler in de tiebreak
-      this.currentRollCount = 1; // Elke speler mag één keer gooien
-      console.log(`Tiebreak gestart voor spelers: ${this.tiedPlayers.map(i => this.players[i]).join(', ')}`);
+      this.currentPlayerIndex = this.tiedPlayers[0];
+      this.currentRollCount = 1;
+      console.log(`Tiebreak started for players: ${this.tiedPlayers.map(i => this.players[i]).join(', ')}`);
     } else {
-      // Als er maar één verliezer is, zet die als de verliezer
-      this.winner = this.players[this.tiedPlayers[0]];
-      console.log(`De verliezer is: ${this.players[this.tiedPlayers[0]]}`);
+      this.losingPlayerIndex = this.tiedPlayers[0];
+      this.winner = this.players[this.losingPlayerIndex];
+      console.log(`The loser is: ${this.players[this.losingPlayerIndex]}`);
     }
   }
 
 
-  resetRound(): void {
-    this.score = [];
-    this.mexCount = Array(this.players.length).fill(0);
-    this.roundOver = false;
-    this.currentPlayerIndex = 0;
-    this.currentRollCount = 3;
-    this.maxRollsForRest = 3;
-  }
 
-  // Functie om het totaal aantal Mex te berekenen
   getTotalMex(): number {
     return this.mexCount.reduce((total, count) => total + count, 0);
   }
 
-  // Functie om een speler toe te voegen
   addPlayer(): void {
     if (this.newPlayerName.trim()) {
       this.players.push(this.newPlayerName.trim());
-      this.mexCount.push(0); // Voeg een teller voor Mex toe voor de nieuwe speler
+      this.mexCount.push(0);
       this.newPlayerName = '';
     }
+    this.resetRound();
   }
 }
