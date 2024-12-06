@@ -1,0 +1,48 @@
+<div class="game-container">
+  <!-- Dynamisch spelers toevoegen -->
+  <div class="add-player">
+    <h2>Voeg spelers toe:</h2>
+    <input type="text"
+           placeholder="Naam van speler"
+           [(ngModel)]="newPlayerName" />
+    <button (click)="addPlayer()">Voeg speler toe</button>
+  </div>
+
+  <!-- Toon de huidige worpen -->
+  <div *ngIf="players.length > 0">
+    <p>Aantal worpen over: {{ currentRollCount }}</p>
+    <button (click)="rollDice()" [disabled]="roundOver || currentRollCount <= 0">Gooi Dobbelstenen</button>
+
+    <p *ngIf="rolls.length > 0">
+      Je worp: {{ rolls[0] }} en {{ rolls[1] }}
+    </p>
+    <div *ngIf="rolls.length > 0">
+      <img [src]="'/dice-' + rolls[0] + '.png'" alt="Dobbelsteen {{ rolls[0] }}" height="50px" width="50px">
+      <img [src]="'/dice-' + rolls[1] + '.png'" alt="Dobbelsteen {{ rolls[1] }}" height="50px" width="50px">
+    </div>
+  </div>
+
+  <!-- Spelers en hun scores -->
+  <div *ngIf="players.length > 0">
+    <h3>Scores:</h3>
+    <ul>
+      <li *ngFor="let player of players; let i = index" [ngClass]="{'highlight': i === currentPlayerIndex}">
+        {{ player }}: {{ score[i] || 0 }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Aantal Mex -->
+  <p *ngIf="roundOver && players.length > 0">Aantal Mex gegooid: {{ getTotalMex() }}</p>
+
+  <!-- Winnaar -->
+  <p *ngIf="roundOver && players.length > 0">
+    De verliezer van de ronde is: {{ winner }}
+  </p>
+
+
+  <!-- Ronde opnieuw starten -->
+  <div *ngIf="roundOver">
+    <button (click)="resetRound()">Start Nieuwe Ronde</button>
+  </div>
+</div>

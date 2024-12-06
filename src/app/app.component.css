@@ -1,0 +1,30 @@
+.game-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li.highlight {
+  font-weight: bold;
+  color: red; /* Verander de kleur naar bijvoorbeeld rood voor de actieve speler */
+}
+
+.highlight {
+  font-weight: bold;
+  color: red;
+}
+
